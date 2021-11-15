@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<script>
+    const eventSource = new EventSource('http://localhost:8080/sse')
+    console.log(eventSource)
+    eventSource.addEventListener("sse", function(event) {
+        console.log(event.data)
+    })
+</script>
+</body>
+</html>
