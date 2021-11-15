@@ -27,19 +27,14 @@ class MessageProcessor {
     // manage listeners
     private val listenersMap: MutableMap<String, MutableMap<String, Consumer<String>>> = ConcurrentHashMap()
 
-    fun register(
-        id: String,
-        userKey: String,
-        consumer: Consumer<String>?
-    ) {
-        consumer ?: throw IllegalStateException()
+    fun register(id: String, userKey: String, consumer: Consumer<String>) {
 
         listenersMap.computeIfAbsent(id) { ConcurrentHashMap() }
             .apply {
                 putIfAbsent(userKey, consumer)
             }
 
-        // todo. pub to redis
+        // todo. pub register event to redis
 
         process(id, userKey)
     }
@@ -52,14 +47,15 @@ class MessageProcessor {
             }
         }
 
-        // todo. pub to redis
+        // todo. pub remove event to redis
 
         process(id, userKey)
     }
 
+
     fun process(id: String, userKey: String) {
 
-        // todo. sub from redis
+        // todo. sub
 
         val count = listenersMap[id]?.size.toString()
         listenersMap[id]?.let {
@@ -68,6 +64,8 @@ class MessageProcessor {
             }
         }
     }
+
+    // todo. sub event from redis
 
     fun listen(id: String, userKey: String): Flux<String> {
         return Flux.create<String?> {
