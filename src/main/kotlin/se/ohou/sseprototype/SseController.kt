@@ -2,9 +2,12 @@ package se.ohou.sseprototype
 
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
-import java.util.*
+import java.util.* // ktlint-disable no-wildcard-imports
 import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Consumer
 
@@ -51,7 +54,6 @@ class MessageProcessor {
 
         process(id, userKey)
     }
-
 
     fun process(id: String, userKey: String) {
 
